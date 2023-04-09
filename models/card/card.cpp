@@ -21,3 +21,11 @@ void Card::setValue(Values value)
 {
     m_value = value;
 }
+bool Card::operator==(const Card &other) const
+{
+    return m_type == other.type() && m_value == other.value();
+}
+bool Card::operator!=(const Card &other) const
+{
+    return !(*this == other);
+}

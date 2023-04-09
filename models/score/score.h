@@ -11,4 +11,7 @@ public:
     Score(std::vector<Card *>);
 
     std::vector<Card *> scoreHistory;
+
+    bool operator==(const Score &) const;
+    bool operator!=(const Score &other) const;
 };

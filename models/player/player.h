@@ -2,7 +2,6 @@
 
 #include <vector>
 
-// #include "card/card.h"
 #include "score/score.h"
 
 class Player
@@ -22,4 +21,7 @@ public:
 
     std::vector<Score> scores;
     std::vector<Card *> player_deck;
+
+    bool operator==(const Player &other) const;
+    bool operator!=(const Player &other) const;
 };

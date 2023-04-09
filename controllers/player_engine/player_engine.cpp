@@ -79,6 +79,13 @@ Card *PlayerEngine::sentCard()
     return sent_card;
 }
 
+Card *PlayerEngine::selectCard(Types type, bool first)
+{
+    if (first)
+    {
+    }
+}
+
 void PlayerEngine::getCard(Card *card)
 {
     player_deck.push_back(card);
@@ -92,7 +99,7 @@ int PlayerEngine::sendTrumpValue(int tValue)
     }
     if (tValue < importantCardSize)
     {
-        return tValue++;
+        return ++tValue;
     }
     else
     {
@@ -103,4 +110,13 @@ int PlayerEngine::sendTrumpValue(int tValue)
 Types PlayerEngine::sendTrumpType()
 {
     return trumpType;
+}
+bool PlayerEngine::operator==(const PlayerEngine &other) const
+{
+    return m_id == other.m_id &&
+           trumpType == other.trumpType &&
+           trumpSize == other.trumpSize &&
+           importantCardSize == other.importantCardSize &&
+           scores == other.scores &&
+           player_deck == other.player_deck;
 }

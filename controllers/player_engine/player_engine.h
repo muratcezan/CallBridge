@@ -13,7 +13,9 @@ public:
     void selectTrump();
     void sortCards();
     Card *sentCard();
+    Card *selectCard(Types, bool);
     void getCard(Card *);
     int sendTrumpValue(int tValue = 0);
     Types sendTrumpType();
+    bool operator==(const PlayerEngine &other) const;
 };

@@ -4,12 +4,12 @@
 
 #include "game_engine.h"
 
-GameEngine::GameEngine() : playerSize(4)
+GameEngine::GameEngine() : playerSize(4), trump(Types::Empty), trumpSize(0), gameTour(0)
 {
     engine();
 }
 
-GameEngine::GameEngine(size_t size) : playerSize(size)
+GameEngine::GameEngine(size_t size) : playerSize(size), trump(Types::Empty), trumpSize(0), gameTour(0)
 {
     engine();
 }
@@ -21,7 +21,7 @@ void GameEngine::engine()
 
     tRun.join();
 
-    // tPrint thread'ini öldürmek için kullanılan kod
+    // // tPrint thread'ini öldürmek için kullanılan kod
     // tPrint.detach();
     // while (true)
     // {
@@ -42,36 +42,58 @@ void GameEngine::run()
     {
         player.engine();
         trumpPlayers.push_back(player);
+        std::cout << player.id() << std::endl;
     }
+
+    int tpSize = trumpPlayers.size();
 
     while (trumpPlayers.size() != 1)
     {
-        for (auto it = std::begin(trumpPlayers); it != std::end(trumpPlayers); ++it)
+        gameTour++;
+        std::vector<PlayerEngine> removePlayers;
+
+        for (auto it = trumpPlayers.begin(); it != trumpPlayers.end(); ++it)
         {
+
             auto pe = *it;
-            int val = pe.sendTrumpValue();
+            int val = pe.sendTrumpValue(trumpSize);
+            std::cout << "(*it).id()" << (*it).id() << " TrumpValue = " << val << std::endl;
             if (val == 0)
             {
-                trumpPlayers.erase(it);
-                break;
+                removePlayers.push_back(*it);
             }
             else
             {
                 if (val > trumpSize)
                 {
                     trumpSize = val;
+                    playerWon.clear();
+                    playerWon.push_back(*it);
+                }
+                else if (val == trumpSize)
+                {
+                    playerWon.push_back(*it);
                 }
                 else
                 {
-                    trumpPlayers.erase(it);
-                    break;
+                    continue;
                 }
             }
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
         }
+        trumpPlayers = playerWon;
+
+        std::cout << "----" << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
-    // PlayerEngine pe = trumpPlayers.at(0);
     auto pe = *(std::begin(trumpPlayers));
     trump = pe.sendTrumpType();
+
+    if (gameTour > 10)
+    {
+        std::cerr << "Game couldn't start!" << std::endl;
+        exit;
+    }
 }
 
 void GameEngine::print()
@@ -81,7 +103,7 @@ void GameEngine::print()
         printMutex.lock();
         clear();
         printUsers(players);
-        printDesk(players);
+        printDesk(players, trump, trumpSize);
         printGetScore(1, players.size());
         printMutex.unlock();
         std::this_thread::sleep_for(std::chrono::milliseconds(100));

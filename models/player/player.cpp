@@ -13,3 +13,11 @@ void Player::setID(int id)
 {
     m_id = id;
 }
+bool Player::operator==(const Player &other) const
+{
+    return m_id == other.m_id && trumpType == other.trumpType && trumpSize == other.trumpSize && importantCardSize == other.importantCardSize;
+}
+bool Player::operator!=(const Player &other) const
+{
+    return !(*this == other);
+}

@@ -1,5 +1,6 @@
 #include <functional>
 #include <iostream>
+#include <string>
 
 #include "game_screen.h"
 
@@ -53,7 +54,7 @@ void GameScreen::printUsers(std::vector<PlayerEngine> players)
     printTopBorder(players.size());
 }
 
-void GameScreen::printDesk(std::vector<PlayerEngine> players)
+void GameScreen::printDesk(std::vector<PlayerEngine> players, Types trump, int trumpSize)
 {
     std::function<int()> tabSize = [players]
     {
@@ -66,6 +67,27 @@ void GameScreen::printDesk(std::vector<PlayerEngine> players)
             return 5;
         }
     };
+    std::string trumpString;
+
+    switch (trump)
+    {
+    case Types::Hearts:
+        trumpString = "Hearts";
+        break;
+    case Types::Diamonds:
+        trumpString = "Diamonds";
+        break;
+    case Types::Clubs:
+        trumpString = "Clubs";
+        break;
+    case Types::Spades:
+        trumpString = "Spades";
+        break;
+    default:
+        trumpString = "Empty";
+        break;
+    }
+
     printEmptyLine(players.size());
     printBorder('|', 1);
     printBorder('\t', tabSize());
@@ -77,7 +99,14 @@ void GameScreen::printDesk(std::vector<PlayerEngine> players)
     printEmptyLine(players.size());
     printBorder('|', 1);
     printBorder('\t', tabSize() - 2);
-    std::cout << "TRUMP = ";
+    std::cout << "TRUMP = " << trumpString;
+    printBorder('\t', tabSize() + 1);
+    printBorder('|', 1);
+    std::cout << std::endl;
+
+    printBorder('|', 1);
+    printBorder('\t', tabSize() - 2);
+    std::cout << "TRUMP SIZE = " << trumpSize;
     printBorder('\t', tabSize() + 1);
     printBorder('|', 1);
     std::cout << std::endl;

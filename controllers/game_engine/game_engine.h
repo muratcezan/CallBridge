@@ -29,7 +29,9 @@ public:
     void createPlayers();
 
     std::vector<PlayerEngine> players;
+    std::vector<PlayerEngine> playerWon;
 
     size_t playerSize;
     std::mutex printMutex; // mutex tanımlama
+    int gameTour;
 };

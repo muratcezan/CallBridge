@@ -16,7 +16,7 @@ protected:
     void clear();
     void printGameScreen();
     void printUsers(std::vector<PlayerEngine>);
-    void printDesk(std::vector<PlayerEngine>);
+    void printDesk(std::vector<PlayerEngine>, Types, int);
     void printGetScore(int, int);
     void printBorder(char, int);
     void printTopBorder(size_t);

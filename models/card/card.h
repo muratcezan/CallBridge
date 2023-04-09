@@ -15,6 +15,9 @@ public:
     Values value() const;
     void setValue(Values);
 
+    bool operator==(const Card &) const;
+    bool operator!=(const Card &other) const;
+
 private:
     Types m_type;
     Values m_value;
