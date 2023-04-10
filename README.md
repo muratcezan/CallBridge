@@ -1,6 +1,6 @@
 # CallBridge
 ## Architecture Diagram
-![Tux, the Linux mascot](/assets/Diagram1.png)
+![CallBridge architecture](/assets/Diagram1.png)
 
 - **red :** models
 - **lightblue :** constants
@@ -50,3 +50,5 @@ and
 ```
 ./CallBridge -u 2
 ```
+
+## Screenshots
