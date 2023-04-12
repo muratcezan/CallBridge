@@ -1,4 +1,5 @@
 #pragma once
+
 #include <map>
 
 #include "player/player.h"
@@ -11,10 +12,12 @@ public:
 
     void engine();
     void selectTrump();
-    void sortCards();
-    Card *sentCard();
-    Card *selectCard(Types, bool);
-    void getCard(Card *);
+    void sortCards(std::vector<Card *> *);
+    Card *sendCard();
+    Card *selectCard(std::vector<Score> *, Types type = Types::Empty);
+    void seperateCardsByTrump();
+
+    void addCardToDeck(Card *);
     int sendTrumpValue(int tValue = 0);
     Types sendTrumpType();
     bool operator==(const PlayerEngine &other) const;

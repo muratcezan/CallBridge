@@ -26,10 +26,16 @@ public:
     void print();
     void cardDeal();
     void shuffleCards(std::vector<Card *> &);
+    void selectTrump();
     void createPlayers();
+    void updateQueue(std::vector<PlayerEngine> &, PlayerEngine &);
+    Card *findMaxCard(const std::vector<Card *> &scoreHistory);
 
     std::vector<PlayerEngine> players;
     std::vector<PlayerEngine> playerWon;
+    PlayerEngine startPlayer;
+
+    std::vector<Score> scoreList;
 
     size_t playerSize;
     std::mutex printMutex; // mutex tanımlama

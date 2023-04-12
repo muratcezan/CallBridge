@@ -6,7 +6,7 @@
 
 class Player
 {
-protected:
+public:
     int m_id;
     Types trumpType;
     int trumpSize;
@@ -21,6 +21,7 @@ public:
 
     std::vector<Score> scores;
     std::vector<Card *> player_deck;
+    std::vector<std::vector<Card *> *> playerSeperatedCards;
 
     bool operator==(const Player &other) const;
     bool operator!=(const Player &other) const;
